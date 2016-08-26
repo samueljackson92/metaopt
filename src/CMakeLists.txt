@@ -1,9 +1,3 @@
-cmake_minimum_required(VERSION 3.1)
-project(meta-opt CXX)
-
-set(CMAKE_BUILD_TYPE Debug)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/../cmake)
-
 find_package(Eigen3 3.0 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 link_directories(${EIGEN3_LIBRARIES})
@@ -27,7 +21,11 @@ add_library(
     ${INCLUDE_FILES}
     ${EIGEN3_LIBRARIES}
 )
+
 target_compile_features(${LIBRARY_NAME} PRIVATE cxx_range_for)
+
+# Python API
+add_subdirectory(python)
 
 enable_testing()
 add_subdirectory(test)

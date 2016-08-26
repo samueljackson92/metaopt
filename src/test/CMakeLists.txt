@@ -1,5 +1,4 @@
 
-set (CATCH_LIBARY_INCLUDES ../../Catch/include)
 set(ALL_TEST_FILES
     SwarmTest.cpp
     ParticleTest.cpp
