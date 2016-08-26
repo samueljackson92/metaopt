@@ -13,7 +13,8 @@ set (INCLUDE_FILES
     ArrayHelpers.h
     Particle.h
     Swarm.h
-    Types.h)
+    Types.h
+    functions.h)
 
 set (SRC_FILES
     Particle.cpp

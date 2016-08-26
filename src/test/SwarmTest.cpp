@@ -1,14 +1,26 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include <catch.hpp>
+#include "../types.h"
 #include "../Swarm.h"
+#include "../functions.h"
+#include "../arrayhelpers.h"
 
 using namespace MetaOpt;
 
-TEST_CASE( "Swarm Setyp", "[Swarm.Swarm]" ) {
-    Eigen::ArrayXd upper(3), lower(3);
-    lower << 0.0, 0.0, 0.0;
-    upper << 1.0, 1.0, 1.0;
-    auto bounds = std::make_pair(lower, upper);
+TEST_CASE( "Swarm Setup", "[Swarm.Swarm]" ) {
+    auto bounds = makeBounds(3, 1, 5);
+    REQUIRE_NOTHROW( Swarm sw(10, bounds, 50) );
+}
 
-    REQUIRE_NOTHROW( Swarm sw(10, bounds) );
+TEST_CASE ( "Swarm Optimize", "[Swarm.Optimize]" ) {
+    auto bounds = makeBounds(3, 1, 5);
+    Swarm sw(10, bounds, 50);
+
+    CostFunction func = rosen;
+    REQUIRE_NOTHROW( sw.optimize(func) );
+    auto solution = sw.getBestSolution();
+
+    REQUIRE( solution(0) == Approx( 2.458 ).epsilon( 0.001 ) );
+    REQUIRE( solution(1) == Approx( 1.717 ).epsilon( 0.001 ));
+    REQUIRE( solution(2) == Approx( 3.701 ).epsilon( 0.001 ));
 }
