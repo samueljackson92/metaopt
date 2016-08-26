@@ -18,6 +18,13 @@ public:
     /// Get the best position found by this particle
     Eigen::ArrayXd getBestPosition() const { return bestPosition; }
 
+    /// Set the current position of the particle
+    void setPosition(const Eigen::ArrayXd& p) { position = p; }
+    /// Set the current velocity of the particle
+    void setVelocity(const Eigen::ArrayXd& v) { velocity = v; }
+    /// Set the best position found by this particle
+    void setBestPosition(const Eigen::ArrayXd& bp) { bestPosition = bp; }
+
 private:
     /// Number of dimensions for the particle
     const size_t dimension;
