@@ -8,20 +8,25 @@ using namespace Eigen;
 
 Particle::Particle(const ParameterSpace &paramSpace)
     : parameterSpace(paramSpace) {
+
+  parameterNames.reserve(paramSpace.size());
+  for (const auto &param : paramSpace) {
+    parameterNames.push_back(param.first);
+  }
+  std::sort(parameterNames.begin(), parameterNames.end());
+
   const auto bounds = makeBoundsFromParameters(parameterSpace);
   const ArrayXd pos = uniformFromBounds(bounds);
   initPosition(pos);
   initVelocity(bounds);
 }
 
-void Particle::setPosition(const ArrayXd &position) {
-  this->position = position;
-  setParametersFromArray(position, parameters);
+const Parameters &Particle::getParameters() {
+  return getParametersFromArray(parameters, position);
 }
 
-void Particle::setBestPosition(const ArrayXd &position) {
-  bestPosition = position;
-  setParametersFromArray(position, bestParameters);
+const Parameters &Particle::getBestParameters() {
+  return getParametersFromArray(bestParameters, bestPosition);
 }
 
 void Particle::initPosition(const ArrayXd &pos) {
@@ -29,9 +34,9 @@ void Particle::initPosition(const ArrayXd &pos) {
   bestPosition = pos;
 
   int index = 0;
-  for (const auto &param : parameterSpace) {
-    parameters.emplace(param.first, pos(index));
-    bestParameters.emplace(param.first, pos(index));
+  for (const auto &name : parameterNames) {
+    parameters.emplace(name, pos(index));
+    bestParameters.emplace(name, pos(index));
     ++index;
   }
 }
@@ -44,8 +49,7 @@ void Particle::initVelocity(const Bounds &bounds) {
   double v = range.matrix().norm();
   const ArrayXd vrange = ArrayXd::Constant(position.size(), -v);
   auto vbound = std::make_pair(-vrange, vrange);
-  const ArrayXd vel = uniformFromBounds(vbound);
-  setVelocity(vel);
+  velocity = uniformFromBounds(vbound);
 }
 
 Bounds
@@ -55,8 +59,8 @@ Particle::makeBoundsFromParameters(const ParameterSpace &parameters) const {
   ArrayXd upper(nDims);
 
   int index = 0;
-  for (const auto &param : parameters) {
-    auto values = param.second;
+  for (const auto &name : parameterNames) {
+    auto values = parameters.at(name);
     lower(index) = values.first;
     upper(index) = values.second;
     ++index;
@@ -74,4 +78,14 @@ void Particle::setParametersFromArray(const ArrayXd &array,
     params[name] = value;
     ++index;
   }
+}
+
+const Parameters &Particle::getParametersFromArray(Parameters &params,
+                                                   const ArrayXd &array) {
+  int index = 0;
+  for (auto &name : parameterNames) {
+    params[name] = array(index);
+    ++index;
+  }
+  return params;
 }

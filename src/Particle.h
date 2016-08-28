@@ -1,8 +1,9 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include <Eigen/Dense>
 #include "Types.h"
+#include <Eigen/Dense>
+#include <vector>
 
 namespace MetaOpt {
 
@@ -12,15 +13,15 @@ public:
   Particle(const ParameterSpace &bounds);
 
   /// Get the current position of the particle
-  Eigen::ArrayXd getPosition() const { return position; }
-  /// Get the current velocity of the particle
-  Eigen::ArrayXd getVelocity() const { return velocity; }
+  Eigen::ArrayXd &getPosition() { return position; }
   /// Get the best position found by this particle
-  Eigen::ArrayXd getBestPosition() const { return bestPosition; }
+  Eigen::ArrayXd &getBestPosition() { return bestPosition; }
+  /// Get the current velocity of the particle
+  Eigen::ArrayXd &getVelocity() { return velocity; }
   /// Get the parameters for this particle
-  Parameters getParameters() const { return parameters; }
+  const Parameters &getParameters();
   /// Get the best parameters found by this particle
-  Parameters getBestParameters() const { return bestParameters; }
+  const Parameters &getBestParameters();
 
   /// Set the current position of the particle
   void setPosition(const Eigen::ArrayXd &p);
@@ -38,6 +39,9 @@ private:
   Bounds makeBoundsFromParameters(const ParameterSpace &parameters) const;
   /// Make parameter map from an array
   void setParametersFromArray(const Eigen::ArrayXd &array, Parameters &params);
+  /// Get parameter map from vector
+  const Parameters &getParametersFromArray(Parameters &params,
+                                           const Eigen::ArrayXd &array);
 
   /// Current position of the particle
   Eigen::ArrayXd position;
@@ -45,12 +49,14 @@ private:
   Eigen::ArrayXd velocity;
   /// Best position found by the particle
   Eigen::ArrayXd bestPosition;
-  /// The parameter map for the current position
-  Parameters parameters;
-  /// The parameter map for the best position found
-  Parameters bestParameters;
   /// The parameter space for the particle
   const ParameterSpace parameterSpace;
+  /// The parameters for this particle
+  Parameters parameters;
+  /// The best paramters found for this particle
+  Parameters bestParameters;
+  /// Names of the parameters for the ordered conversion
+  std::vector<std::string> parameterNames;
 };
 
 // export typedef of pointer type

@@ -54,26 +54,24 @@ Particle_ptr Swarm::findBestParticle(const CostFunction &func) const
 
 void Swarm::updateParticle(const Particle_ptr particle)
 {
-    ArrayXd x = particle->getPosition();
-    ArrayXd p = particle->getBestPosition();
-    ArrayXd v = particle->getVelocity();
+  ArrayXd &x = particle->getPosition();
+  ArrayXd &p = particle->getBestPosition();
+  ArrayXd &v = particle->getVelocity();
 
-    ArrayXd rp = ArrayXd::Random(x.size());
-    ArrayXd rg = ArrayXd::Random(x.size());
+  ArrayXd rp = ArrayXd::Random(x.size());
+  ArrayXd rg = ArrayXd::Random(x.size());
 
-    double phi_local = hyperParameters["phi_local"];
-    double phi_global = hyperParameters["phi_global"];
-    double omega = hyperParameters["omega"];
+  double phi_local = hyperParameters["phi_local"];
+  double phi_global = hyperParameters["phi_global"];
+  double omega = hyperParameters["omega"];
 
-    // local & global contributions
-    ArrayXd local_part = phi_local * rp * (p - x);
-    ArrayXd global_part = phi_global * rg * (bestPosition - x);
+  // local & global contributions
+  ArrayXd local_part = phi_local * rp * (p - x);
+  ArrayXd global_part = phi_global * rg * (bestPosition - x);
 
-    // update position
-    v = omega * v + local_part + global_part;
-    x = x + v;
-    particle->setVelocity(v);
-    particle->setPosition(x);
+  // update position & velocity
+  v = omega * v + local_part + global_part;
+  x += v;
 }
 
 void Swarm::updateBestPositions(const Particle_ptr particle)
@@ -85,7 +83,9 @@ void Swarm::updateBestPositions(const Particle_ptr particle)
   auto bestValue = func(p);
 
   if (value < bestValue) {
-    particle->setBestPosition(particle->getPosition());
+    ArrayXd &pos = particle->getPosition();
+    ArrayXd &bstPos = particle->getBestPosition();
+    bstPos = pos;
 
     auto globalBestValue = func(bestParameters);
     if (value < globalBestValue) {
