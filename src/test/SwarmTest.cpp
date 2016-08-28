@@ -45,9 +45,9 @@ TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
 TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
   Parameters hyperParams = makeHyperParameters();
   ParameterSpace parameters;
-  parameters["x0"] = std::make_pair(1.0, 5.0);
-  parameters["x1"] = std::make_pair(1.0, 5.0);
-  parameters["x2"] = std::make_pair(1.0, 5.0);
+  parameters["x0"] = std::make_pair(-3, 3);
+  parameters["x1"] = std::make_pair(-3, 3);
+  parameters["x2"] = std::make_pair(-3, 3);
 
   Swarm sw(parameters, hyperParams, 10, 50);
 
@@ -55,9 +55,9 @@ TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
   REQUIRE_NOTHROW(sw.optimize(func));
   auto solution = sw.getBestParameters();
 
-  REQUIRE(func(solution) == Approx(1.321).epsilon(0.1));
+  REQUIRE(func(solution) == Approx(0).epsilon(0.01));
   REQUIRE(solution.size() == 3);
-  REQUIRE(solution.at("x0") == Approx(1).epsilon(1));
-  REQUIRE(solution.at("x1") == Approx(1).epsilon(1));
-  REQUIRE(solution.at("x2") == Approx(1).epsilon(1));
+  REQUIRE(solution.at("x0") == Approx(1).epsilon(0.1));
+  REQUIRE(solution.at("x1") == Approx(1).epsilon(0.1));
+  REQUIRE(solution.at("x2") == Approx(1).epsilon(0.1));
 }

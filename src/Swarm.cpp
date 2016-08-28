@@ -86,11 +86,12 @@ void Swarm::updateBestPositions(const Particle_ptr particle)
   auto bestValue = func(p);
 
   if (value < bestValue) {
-    particle->setBestPosition(particle->getBestPosition());
+    particle->setBestPosition(particle->getPosition());
 
     auto globalBestValue = func(bestParameters);
     if (value < globalBestValue) {
       bestParameters = x;
+      bestPosition = particle->getPosition();
     }
     }
 }
