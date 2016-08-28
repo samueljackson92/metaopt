@@ -26,7 +26,6 @@ target_compile_features(${LIBRARY_NAME} PRIVATE cxx_range_for)
 
 # Python API
 add_subdirectory(python)
-
-enable_testing()
+# Unit tests
 add_subdirectory(test)
 
