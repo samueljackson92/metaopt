@@ -22,4 +22,21 @@ double rosen (const Eigen::ArrayXd& vec)
     return y;
 }
 
+/**
+ * @brief N-Dimensional parabolic function centered on the origin.
+ *
+ * The function has the form x1**2 + x2**2 + ... + xn**2 = y
+ *
+ * @param vec :: n dimensional arry of x values
+ * @return value of the function evaludated at the point defined by vec
+ */
+double parabola(const Eigen::ArrayXd &vec) {
+  using namespace std;
+  double y = 0;
+  for (size_t i = 0; i < vec.size(); ++i)
+    y += std::pow(vec[i], 2.0);
+
+  return y;
+}
+
 #endif // FUNCTIONS_H
