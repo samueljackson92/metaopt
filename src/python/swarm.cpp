@@ -14,7 +14,7 @@ namespace py = pybind11;
 void init_swarm(py::module &m) {
 
   py::class_<Swarm>(m, "Swarm")
-      .def(py::init<std::size_t, const Bounds &, const int>())
+      .def(py::init<std::size_t, const Parameters &, const int>())
       .def("optimize", &Swarm::optimize)
       .def("getSolution", &Swarm::getBestSolution);
 }

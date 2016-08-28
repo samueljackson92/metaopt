@@ -9,17 +9,16 @@
 using namespace Eigen;
 using namespace MetaOpt;
 
-
-Swarm::Swarm(size_t num_particles, const Bounds &bounds, const int seed)
+Swarm::Swarm(size_t num_particles, const Parameters &parameters, const int seed)
     : num_particles(num_particles) {
-    SwarmHyperParameters params;
-    params.omega = 0.1;
-    params.phi_local = 0.1;
-    params.phi_global = 0.1;
+  SwarmHyperParameters params;
+  params.omega = 0.1;
+  params.phi_local = 0.1;
+  params.phi_global = 0.1;
 
   this->params = params;
   setRandomSeed(seed);
-  initParticles(bounds);
+  initParticles(parameters);
 }
 
 void Swarm::optimize(const CostFunction &func)
@@ -40,7 +39,8 @@ void Swarm::optimize(const CostFunction &func)
     }
 }
 
-void Swarm::initParticles(const Bounds &bounds) {
+void Swarm::initParticles(const Parameters &parameters) {
+  Bounds bounds = makeBoundsFromParameters(parameters);
   particles.reserve(num_particles);
   for (size_t i = 0; i < num_particles; ++i) {
     auto particle = std::make_shared<Particle>(bounds);
@@ -101,4 +101,20 @@ void Swarm::setRandomSeed(const int seed) const {
   } else {
     srand(time(NULL));
   }
+}
+
+Bounds Swarm::makeBoundsFromParameters(const Parameters &parameters) const {
+  auto nDims = parameters.size();
+  ArrayXd lower(nDims);
+  ArrayXd upper(nDims);
+
+  int index = 0;
+  for (const auto &param : parameters) {
+    auto values = param.second;
+    lower(index) = values.first;
+    upper(index) = values.second;
+    ++index;
+  }
+
+  return std::make_pair(lower, upper);
 }

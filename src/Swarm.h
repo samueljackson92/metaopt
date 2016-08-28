@@ -15,17 +15,20 @@ struct SwarmHyperParameters {
 
 class Swarm {
 public:
-    Swarm(std::size_t num_particles, const Bounds& bounds, const int seed = -1);
-    /// Optimize the cost function using the swarm
-    void optimize(const CostFunction &func);
-    /// Get the best soultion found
-    Eigen::ArrayXd getBestSolution() const { return bestPosition; }
+  Swarm(std::size_t num_particles, const Parameters &parameters,
+        const int seed = -1);
+  /// Optimize the cost function using the swarm
+  void optimize(const CostFunction &func);
+  /// Get the best soultion found
+  Eigen::ArrayXd getBestSolution() const { return bestPosition; }
 
 private:
     /// set the system random seed.
     void setRandomSeed(const int seed) const;
+    /// Make space bounds from parameter map
+    Bounds makeBoundsFromParameters(const Parameters &parameters) const;
     /// initilise particles with random positions & velocity
-    void initParticles(const Bounds& bounds);
+    void initParticles(const Parameters &parameters);
     /// find the particle wiht the best candidate solution
     Particle_ptr findBestParticle(const CostFunction& func) const;
     /// update position & velocity of each particle

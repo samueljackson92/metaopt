@@ -7,13 +7,20 @@
 using namespace MetaOpt;
 
 TEST_CASE( "Swarm Setup", "[Swarm.Swarm]" ) {
-    auto bounds = makeBounds(3, 1, 5);
-    REQUIRE_NOTHROW( Swarm sw(10, bounds, 50) );
+  Parameters parameters;
+  parameters["x1"] = std::make_pair(-1, 1);
+  parameters["x2"] = std::make_pair(-1, 1);
+  parameters["x3"] = std::make_pair(-1, 1);
+
+  REQUIRE_NOTHROW(Swarm sw(10, parameters, 50));
 }
 
 TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
-  auto bounds = makeBounds(2, -1, 1);
-  Swarm sw(10, bounds, 50);
+  Parameters parameters;
+  parameters["x1"] = std::make_pair(-1, 1);
+  parameters["x2"] = std::make_pair(-1, 1);
+
+  Swarm sw(10, parameters, 50);
 
   CostFunction func = parabola;
   REQUIRE_NOTHROW(sw.optimize(func));
@@ -26,16 +33,20 @@ TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
 }
 
 TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
-  auto bounds = makeBounds(3, 1, 5);
-  Swarm sw(10, bounds, 50);
+  Parameters parameters;
+  parameters["x1"] = std::make_pair(1.0, 5.0);
+  parameters["x2"] = std::make_pair(1.0, 5.0);
+  parameters["x3"] = std::make_pair(1.0, 5.0);
+
+  Swarm sw(10, parameters, 50);
 
   CostFunction func = rosen;
   REQUIRE_NOTHROW(sw.optimize(func));
   auto solution = sw.getBestSolution();
 
-  REQUIRE(func(solution) == Approx(181.646).epsilon(0.001));
+  REQUIRE(func(solution) == Approx(2.090).epsilon(0.001));
   REQUIRE(solution.size() == 3);
-  REQUIRE(solution(0) == Approx(1.805).epsilon(0.001));
-  REQUIRE(solution(1) == Approx(1.960).epsilon(0.001));
-  REQUIRE(solution(2) == Approx(3.503).epsilon(0.001));
+  REQUIRE(solution(0) == Approx(1.524).epsilon(0.001));
+  REQUIRE(solution(1) == Approx(2.283).epsilon(0.001));
+  REQUIRE(solution(2) == Approx(5.209).epsilon(0.001));
 }
