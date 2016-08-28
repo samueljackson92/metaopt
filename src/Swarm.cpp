@@ -17,23 +17,22 @@ Swarm::Swarm(const ParameterSpace &parameters,
   initParticles(parameters);
 }
 
-void Swarm::optimize(const CostFunction &func)
-{
-    this->func = func;
-    size_t iterations = 10000;
-    size_t currentIteration = 0;
+void Swarm::optimize(const CostFunction &func,
+                     const std::size_t numIterations) {
+  this->func = func;
+  size_t currentIteration = 0;
 
-    auto bestParticle = findBestParticle(func);
-    bestPosition = bestParticle->getPosition();
-    bestParameters = bestParticle->getParameters();
+  auto bestParticle = findBestParticle(func);
+  bestPosition = bestParticle->getPosition();
+  bestParameters = bestParticle->getParameters();
 
-    while (currentIteration < iterations) {
-        for (auto particle : particles) {
-            updateParticle(particle);
-            updateBestPositions(particle);
-        }
-        ++currentIteration;
+  while (currentIteration < numIterations) {
+    for (auto particle : particles) {
+      updateParticle(particle);
+      updateBestPositions(particle);
     }
+    ++currentIteration;
+  }
 }
 
 void Swarm::initParticles(const ParameterSpace &parameters) {

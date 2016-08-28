@@ -18,7 +18,8 @@ public:
   Swarm(const ParameterSpace &parameters, const Parameters &hyperParameters,
         std::size_t num_particles = 10, const int seed = -1);
   /// Optimize the cost function using the swarm
-  void optimize(const CostFunction &func);
+  void optimize(const CostFunction &func,
+                const std::size_t numIterations = 10000);
   /// Get the best soultion found
   Eigen::ArrayXd getBestSolution() const { return bestPosition; }
   Parameters getBestParameters() const { return bestParameters; }
