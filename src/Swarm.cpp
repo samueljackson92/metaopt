@@ -9,15 +9,10 @@
 using namespace Eigen;
 using namespace MetaOpt;
 
-Swarm::Swarm(size_t num_particles, const ParameterSpace &parameters,
+Swarm::Swarm(const ParameterSpace &parameters,
+             const Parameters &hyperParameters, size_t num_particles,
              const int seed)
-    : num_particles(num_particles) {
-  SwarmHyperParameters params;
-  params.omega = 0.1;
-  params.phi_local = 0.1;
-  params.phi_global = 0.1;
-
-  this->params = params;
+    : num_particles(num_particles), hyperParameters(hyperParameters) {
   setRandomSeed(seed);
   initParticles(parameters);
 }
@@ -67,12 +62,16 @@ void Swarm::updateParticle(const Particle_ptr particle)
     ArrayXd rp = ArrayXd::Random(x.size());
     ArrayXd rg = ArrayXd::Random(x.size());
 
+    double phi_local = hyperParameters["phi_local"];
+    double phi_global = hyperParameters["phi_global"];
+    double omega = hyperParameters["omega"];
+
     // local & global contributions
-    ArrayXd local_part = params.phi_local * rp * (p - x);
-    ArrayXd global_part = params.phi_global * rg * (bestPosition - x);
+    ArrayXd local_part = phi_local * rp * (p - x);
+    ArrayXd global_part = phi_global * rg * (bestPosition - x);
 
     // update position
-    v = params.omega * v + local_part + global_part;
+    v = omega * v + local_part + global_part;
     x = x + v;
     particle->setVelocity(v);
     particle->setPosition(x);

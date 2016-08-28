@@ -6,21 +6,31 @@
 
 using namespace MetaOpt;
 
+Parameters makeHyperParameters() {
+  Parameters params;
+  params["omega"] = 0.1;
+  params["phi_local"] = 0.1;
+  params["phi_global"] = 0.1;
+  return params;
+}
+
 TEST_CASE( "Swarm Setup", "[Swarm.Swarm]" ) {
+  Parameters hyperParams = makeHyperParameters();
   ParameterSpace parameters;
   parameters["x0"] = std::make_pair(-1, 1);
   parameters["x1"] = std::make_pair(-1, 1);
   parameters["x2"] = std::make_pair(-1, 1);
 
-  REQUIRE_NOTHROW(Swarm sw(10, parameters, 50));
+  REQUIRE_NOTHROW(Swarm sw(parameters, hyperParams, 10, 50));
 }
 
 TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
+  Parameters hyperParams = makeHyperParameters();
   ParameterSpace parameters;
   parameters["x0"] = std::make_pair(-1, 1);
   parameters["x1"] = std::make_pair(-1, 1);
 
-  Swarm sw(10, parameters, 50);
+  Swarm sw(parameters, hyperParams, 10, 50);
 
   CostFunction func = parabola;
   REQUIRE_NOTHROW(sw.optimize(func));
@@ -33,12 +43,13 @@ TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
 }
 
 TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
+  Parameters hyperParams = makeHyperParameters();
   ParameterSpace parameters;
   parameters["x0"] = std::make_pair(1.0, 5.0);
   parameters["x1"] = std::make_pair(1.0, 5.0);
   parameters["x2"] = std::make_pair(1.0, 5.0);
 
-  Swarm sw(10, parameters, 50);
+  Swarm sw(parameters, hyperParams, 10, 50);
 
   CostFunction func = rosen;
   REQUIRE_NOTHROW(sw.optimize(func));

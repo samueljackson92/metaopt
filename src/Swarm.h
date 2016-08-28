@@ -15,8 +15,8 @@ struct SwarmHyperParameters {
 
 class Swarm {
 public:
-  Swarm(std::size_t num_particles, const ParameterSpace &parameters,
-        const int seed = -1);
+  Swarm(const ParameterSpace &parameters, const Parameters &hyperParameters,
+        std::size_t num_particles = 10, const int seed = -1);
   /// Optimize the cost function using the swarm
   void optimize(const CostFunction &func);
   /// Get the best soultion found
@@ -44,7 +44,7 @@ private:
     /// Current best parameters found by any member of the swarm
     Parameters bestParameters;
     /// Hyper parameters for the swarm
-    SwarmHyperParameters params;
+    Parameters hyperParameters;
     /// Cost function
     CostFunction func;
 
