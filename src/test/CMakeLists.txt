@@ -3,7 +3,7 @@ set(TEST_EXEC_NAME MetaOptTests)
 set(ALL_TEST_FILES
     catch_main.cpp
     SwarmTest.cpp
-    ParticleTest.cpp
+    particletest.cpp
 )
 
 add_executable(${TEST_EXEC_NAME} ${ALL_TEST_FILES})

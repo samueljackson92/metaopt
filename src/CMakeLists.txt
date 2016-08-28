@@ -11,7 +11,7 @@ set (INCLUDE_FILES
     functions.h)
 
 set (SRC_FILES
-    Particle.cpp
+    particle.cpp
     Swarm.cpp)
 
 add_library(
