@@ -8,12 +8,12 @@ TEST_CASE("Particle Setup", "[Particle]") {
   // seed the random number generator for Eigen
   srand(50);
 
-  Eigen::ArrayXd upper(3), lower(3);
-  lower << 1.0, 1.0, 1.0;
-  upper << 5.0, 5.0, 5.0;
-  auto bounds = std::make_pair(lower, upper);
+  ParameterSpace parameters;
+  parameters["x1"] = std::make_pair(1, 5);
+  parameters["x2"] = std::make_pair(1, 5);
+  parameters["x3"] = std::make_pair(1, 5);
 
-  Particle p(bounds);
+  Particle p(parameters);
   Eigen::ArrayXd pos = p.getPosition();
   Eigen::ArrayXd bstPos = p.getBestPosition();
   Eigen::ArrayXd vel = p.getVelocity();

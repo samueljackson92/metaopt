@@ -9,7 +9,8 @@
 using namespace Eigen;
 using namespace MetaOpt;
 
-Swarm::Swarm(size_t num_particles, const Parameters &parameters, const int seed)
+Swarm::Swarm(size_t num_particles, const ParameterSpace &parameters,
+             const int seed)
     : num_particles(num_particles) {
   SwarmHyperParameters params;
   params.omega = 0.1;
@@ -29,6 +30,7 @@ void Swarm::optimize(const CostFunction &func)
 
     auto bestParticle = findBestParticle(func);
     bestPosition = bestParticle->getPosition();
+    bestParameters = bestParticle->getParameters();
 
     while (currentIteration < iterations) {
         for (auto particle : particles) {
@@ -39,22 +41,21 @@ void Swarm::optimize(const CostFunction &func)
     }
 }
 
-void Swarm::initParticles(const Parameters &parameters) {
-  Bounds bounds = makeBoundsFromParameters(parameters);
+void Swarm::initParticles(const ParameterSpace &parameters) {
   particles.reserve(num_particles);
   for (size_t i = 0; i < num_particles; ++i) {
-    auto particle = std::make_shared<Particle>(bounds);
+    auto particle = std::make_shared<Particle>(parameters);
     particles.push_back(particle);
   }
 }
 
 Particle_ptr Swarm::findBestParticle(const CostFunction &func) const
 {
-    auto comp = [&func](const Particle_ptr p1, const Particle_ptr p2) {
-       return func(p1->getPosition()) < func(p2->getPosition());
-    };
-    auto elem = std::min_element(particles.begin(), particles.end(), comp);
-    return *elem;
+  auto comp = [&func](const Particle_ptr p1, const Particle_ptr p2) {
+    return func(p1->getParameters()) < func(p2->getParameters());
+  };
+  auto elem = std::min_element(particles.begin(), particles.end(), comp);
+  return *elem;
 }
 
 void Swarm::updateParticle(const Particle_ptr particle)
@@ -79,19 +80,19 @@ void Swarm::updateParticle(const Particle_ptr particle)
 
 void Swarm::updateBestPositions(const Particle_ptr particle)
 {
-    ArrayXd x = particle->getPosition();
-    ArrayXd p = particle->getBestPosition();
+  auto x = particle->getParameters();
+  auto p = particle->getBestParameters();
 
-    auto value = func(x);
-    auto bestValue = func(p);
+  auto value = func(x);
+  auto bestValue = func(p);
 
-    if (value < bestValue) {
-        particle->setBestPosition(x);
+  if (value < bestValue) {
+    particle->setBestPosition(particle->getBestPosition());
 
-        auto globalBestValue = func(bestPosition);
-        if (value < globalBestValue) {
-            bestPosition = x;
-        }
+    auto globalBestValue = func(bestParameters);
+    if (value < globalBestValue) {
+      bestParameters = x;
+    }
     }
 }
 
@@ -101,20 +102,4 @@ void Swarm::setRandomSeed(const int seed) const {
   } else {
     srand(time(NULL));
   }
-}
-
-Bounds Swarm::makeBoundsFromParameters(const Parameters &parameters) const {
-  auto nDims = parameters.size();
-  ArrayXd lower(nDims);
-  ArrayXd upper(nDims);
-
-  int index = 0;
-  for (const auto &param : parameters) {
-    auto values = param.second;
-    lower(index) = values.first;
-    upper(index) = values.second;
-    ++index;
-  }
-
-  return std::make_pair(lower, upper);
 }
