@@ -1,8 +1,9 @@
 #include <catch.hpp>
-#include "../types.h"
+#include "../Types.h"
+
 #include "../Swarm.h"
-#include "../functions.h"
-#include "../arrayhelpers.h"
+#include "../Functions.h"
+#include "../ArrayHelpers.h"
 
 using namespace MetaOpt;
 

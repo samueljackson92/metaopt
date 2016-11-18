@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "../Particle.h"
 
+
 using namespace MetaOpt;
 
 TEST_CASE("Particle Setup", "[Particle]") {
