@@ -5,13 +5,13 @@ link_directories(${EIGEN3_LIBRARIES})
 set (LIBRARY_NAME metaopt)
 set (INCLUDE_FILES
     ArrayHelpers.h
-    particle.h
+    Particle.h
     Swarm.h
     Types.h
-    functions.h)
+    Functions.h)
 
 set (SRC_FILES
-    particle.cpp
+    Particle.cpp
     Swarm.cpp)
 
 add_library(

@@ -10,8 +10,8 @@ PREPEND(MO_SOURCES ../ ${SRC_FILES})
 PREPEND(MO_INCLUDES ../ ${INC_FILES})
 
 set(BINDING_FILES
-    Swarm.cpp
-    Functions.cpp)
+    swarm.cpp
+    functions.cpp)
 
 pybind11_add_module(pymetaopt python_bindings.cpp
     ${BINDING_FILES} ${MO_SOURCES} ${MO_INCLUDES})
