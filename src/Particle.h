@@ -3,6 +3,7 @@
 
 #include "Types.h"
 #include <Eigen/Dense>
+#include <memory>
 #include <vector>
 
 namespace MetaOpt {
