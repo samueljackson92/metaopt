@@ -17,7 +17,7 @@ public:
     auto randNum  = [&] () -> double {
       return RandomGenerator::uniform<double>();
     };
-    return Eigen::ArrayXd::NullaryExpr(dimension, randNum );
+    return Eigen::ArrayXd::NullaryExpr(dimension, 1, randNum );
   }
 
   static Eigen::ArrayXd uniformFromBounds(const Bounds &bounds) {
