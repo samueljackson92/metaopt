@@ -13,10 +13,10 @@ namespace py = pybind11;
 void init_swarm(py::module &m) {
 
   auto constructor = py::init<const ParameterSpace &, const Parameters &,
-                              std::size_t, const int>();
+                              size_t>();
   py::class_<Swarm>(m, "Swarm")
       .def(constructor, py::arg("parameter_space"), py::arg("hyper_params"),
-           py::arg("num_particles") = 10, py::arg("seed") = -1)
+           py::arg("num_particles") = 10)
       .def("optimize", &Swarm::optimize)
       .def("getBestSolution", &Swarm::getBestSolution)
       .def("getBestParameters", &Swarm::getBestParameters);

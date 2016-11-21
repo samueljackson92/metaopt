@@ -5,15 +5,14 @@
 
 #include "Particle.h"
 #include "Swarm.h"
+#include "ArrayHelpers.h"
 
 using namespace Eigen;
 using namespace MetaOpt;
 
 Swarm::Swarm(const ParameterSpace &parameters,
-             const Parameters &hyperParameters, size_t num_particles,
-             const int seed)
+             const Parameters &hyperParameters, size_t num_particles)
     : num_particles(num_particles), hyperParameters(hyperParameters) {
-  setRandomSeed(seed);
   initParticles(parameters);
 }
 
@@ -58,8 +57,8 @@ void Swarm::updateParticle(const Particle_ptr particle)
   ArrayXd &p = particle->getBestPosition();
   ArrayXd &v = particle->getVelocity();
 
-  ArrayXd rp = ArrayXd::Random(x.size());
-  ArrayXd rg = ArrayXd::Random(x.size());
+  ArrayXd rp = ArrayHelpers::randomArray(x.size());
+  ArrayXd rg = ArrayHelpers::randomArray(x.size());
 
   double phi_local = hyperParameters["phi_local"];
   double phi_global = hyperParameters["phi_global"];
@@ -92,13 +91,5 @@ void Swarm::updateBestPositions(const Particle_ptr particle)
       bestParameters = x;
       bestPosition = particle->getPosition();
     }
-    }
-}
-
-void Swarm::setRandomSeed(const int seed) const {
-  if (seed > 0) {
-    srand(seed);
-  } else {
-    srand(time(NULL));
   }
 }

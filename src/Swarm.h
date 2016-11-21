@@ -1,3 +1,6 @@
+#ifndef SWARM_H
+#define SWARM_H
+
 #include <cstddef>
 #include <vector>
 #include <Eigen/Core>
@@ -16,7 +19,7 @@ struct SwarmHyperParameters {
 class Swarm {
 public:
   Swarm(const ParameterSpace &parameters, const Parameters &hyperParameters,
-        std::size_t num_particles = 10, const int seed = -1);
+        std::size_t num_particles = 10);
   /// Optimize the cost function using the swarm
   void optimize(const CostFunction &func,
                 const std::size_t numIterations = 10000);
@@ -25,8 +28,6 @@ public:
   Parameters getBestParameters() const { return bestParameters; }
 
 private:
-    /// set the system random seed.
-    void setRandomSeed(const int seed) const;
     /// initilise particles with random positions & velocity
     void initParticles(const ParameterSpace &parameters);
     /// find the particle wiht the best candidate solution
@@ -51,3 +52,5 @@ private:
 
 };
 }
+
+#endif

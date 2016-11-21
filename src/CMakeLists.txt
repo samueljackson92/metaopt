@@ -6,11 +6,13 @@ set (LIBRARY_NAME metaopt)
 set (INCLUDE_FILES
     ArrayHelpers.h
     Particle.h
+    RandomGenerator.hpp
     Swarm.h
     Types.h
     Functions.h)
 
 set (SRC_FILES
+    RandomGenerator.cpp
     Particle.cpp
     Swarm.cpp)
 

@@ -4,6 +4,7 @@ set(ALL_TEST_FILES
     catch_main.cpp
     SwarmTest.cpp
     particletest.cpp
+    RandomGeneratorTest.cpp
 )
 
 add_executable(${TEST_EXEC_NAME} ${ALL_TEST_FILES})

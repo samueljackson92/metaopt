@@ -2,6 +2,7 @@
 #define PARTICLE_H
 
 #include "Types.h"
+
 #include <Eigen/Dense>
 #include <memory>
 #include <vector>

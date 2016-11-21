@@ -1,5 +1,5 @@
-#include "ArrayHelpers.h"
 #include "Particle.h"
+#include "ArrayHelpers.h"
 
 #include <Eigen/Core>
 
@@ -16,7 +16,7 @@ Particle::Particle(const ParameterSpace &paramSpace)
   std::sort(parameterNames.begin(), parameterNames.end());
 
   const auto bounds = makeBoundsFromParameters(parameterSpace);
-  const ArrayXd pos = uniformFromBounds(bounds);
+  const ArrayXd pos = ArrayHelpers::uniformFromBounds(bounds);
   initPosition(pos);
   initVelocity(bounds);
 }
@@ -49,7 +49,7 @@ void Particle::initVelocity(const Bounds &bounds) {
   double v = range.matrix().norm();
   const ArrayXd vrange = ArrayXd::Constant(position.size(), -v);
   auto vbound = std::make_pair(-vrange, vrange);
-  velocity = uniformFromBounds(vbound);
+  velocity = ArrayHelpers::uniformFromBounds(vbound);
 }
 
 Bounds
