@@ -14,7 +14,7 @@ class ArrayHelpers {
 
 public:
   static Eigen::ArrayXd randomArray(const size_t dimension) {
-    auto randNum  = [&] () -> double {
+    auto randNum  = [](Eigen::Index& index) -> double {
       return RandomGenerator::uniform<double>();
     };
     return Eigen::ArrayXd::NullaryExpr(dimension, 1, randNum );

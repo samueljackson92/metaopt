@@ -7,5 +7,8 @@ set (CATCH_LIBARY_INCLUDES ${PROJECT_SOURCE_DIR}/Catch/include)
 
 add_compile_options(-std=c++11)
 
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
 add_subdirectory(pybind11)
 add_subdirectory(src)
