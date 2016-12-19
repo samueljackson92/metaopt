@@ -40,6 +40,7 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-3.7
           packages:
             - clang-3.7
             - cmake
