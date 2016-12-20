@@ -9,6 +9,9 @@ namespace MetaOpt {
 
 /**
  * N-Dimensional generalization of the Rosenbrock function
+ *
+ * The minimum of this function will be at zero
+ *
  * @param vec :: n dimensional array of x values
  * @return value of the function evaluated at the point defined by vec
  */
@@ -25,9 +28,11 @@ double rosen(const Parameters &params) {
 }
 
 /**
- * @brief N-Dimensional parabolic function centered on the origin.
+ * N-Dimensional parabolic function centered on the origin.
  *
  * The function has the form x1**2 + x2**2 + ... + xn**2 = y
+ *
+ * The minimum of this function will be at zero
  *
  * @param vec :: n dimensional arry of x values
  * @return value of the function evaludated at the point defined by vec
