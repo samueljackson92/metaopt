@@ -1,7 +1,7 @@
 
 # Add test files 
 # ------------------------------------------------------------------------------
-set(TEST_EXEC_NAME metaopt-tests)
+set(TEST_EXEC_NAME optima-tests)
 set(ALL_TEST_FILES
     catch_main.cpp
     SwarmTest.cpp

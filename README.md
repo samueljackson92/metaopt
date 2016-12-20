@@ -1,6 +1,6 @@
-# MetaOpt
+# Optima 
 
-[![Build Status](https://travis-ci.org/samueljackson92/metaopt.svg?branch=travis_build)](https://travis-ci.org/samueljackson92/metaopt)
+[![Build Status](https://travis-ci.org/samueljackson92/metaopt.svg?branch=travis_build)](https://travis-ci.org/samueljackson92/optima)
 
 ## Build Instructions
 
@@ -11,7 +11,7 @@ your system and a C++11 compatible compiler. Currently only tested with gcc >=
 Then run the following:
 
 ```bash
-git clone git@github.com:samueljackson92/metaopt.git
+git clone git@github.com:samueljackson92/optima.git
 git submodule update --init
 cd metaopt
 mkdir build && cd build

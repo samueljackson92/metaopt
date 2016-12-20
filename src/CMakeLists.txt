@@ -1,5 +1,5 @@
 
-set (LIBRARY_NAME metaopt)
+set (LIBRARY_NAME optima)
 set (INCLUDE_FILES
     ArrayHelpers.h
     Particle.h

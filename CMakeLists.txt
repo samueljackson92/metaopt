@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.1)
-project(metaopt CXX)
+project(optima CXX)
 
 # Setup build config
 # ------------------------------------------------------------------------------
@@ -32,4 +32,4 @@ add_subdirectory(src)
 # Enable ctest 
 # ------------------------------------------------------------------------------
 enable_testing()
-add_test(NAME all COMMAND metaopt-tests)
+add_test(NAME all COMMAND optima-tests)
