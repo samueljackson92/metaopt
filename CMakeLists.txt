@@ -28,8 +28,10 @@ set(CATCH_LIBARY_INCLUDES ${PROJECT_SOURCE_DIR}/Catch/include)
 set(PYBIND11_CPP_STANDARD -std=c++11)
 add_subdirectory(pybind11)
 add_subdirectory(src)
+add_subdirectory(python_tests)
 
 # Enable ctest 
 # ------------------------------------------------------------------------------
 enable_testing()
 add_test(NAME all COMMAND optima-tests)
+
