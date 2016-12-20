@@ -55,5 +55,6 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
-  - ./src/test/MetaOptTests
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER ..
+  - make
+  - make test

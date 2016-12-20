@@ -1,6 +1,3 @@
-find_package(Eigen3 3.0 REQUIRED)
-include_directories(${EIGEN3_INCLUDE_DIR})
-link_directories(${EIGEN3_LIBRARIES})
 
 set (LIBRARY_NAME metaopt)
 set (INCLUDE_FILES
