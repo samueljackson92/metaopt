@@ -51,6 +51,7 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install libc++-dev
   - sudo apt-get install -y libeigen3-dev
+  - pip3 install numpy --upgrade
   - pip3 install nose
 
 script:
