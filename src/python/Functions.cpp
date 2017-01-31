@@ -9,9 +9,9 @@ namespace Python {
 namespace py = pybind11;
 
 void init_functions(py::module &m) {
-  m.def("rosen", &rosen,
+  m.def("rosen", &TestFunctions::rosen,
         "Multi dimensional version of the rosenbrock function.");
-  m.def("parabola", &parabola, "Multi dimensional parabolic function.");
+  m.def("parabola", &TestFunctions::parabola, "Multi dimensional parabolic function.");
 }
 }
 }
