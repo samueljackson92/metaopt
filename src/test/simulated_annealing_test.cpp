@@ -3,7 +3,7 @@
 #include "../types.hpp"
 #include "../functions.hpp"
 #include "../random_generator.hpp"
-#include "../simulated_annealing.h"
+#include "../simulated_annealing.hpp"
 
 using namespace Optima;
 

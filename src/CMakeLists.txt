@@ -5,7 +5,7 @@ set (INCLUDE_FILES
     functions.hpp
     particle.hpp
     random_generator.hpp
-    simulated_annealing.h
+    simulated_annealing.hpp
     swarm.hpp
     types.hpp
 )
