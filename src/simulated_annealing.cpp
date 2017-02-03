@@ -9,6 +9,12 @@ SimulatedAnnealing::SimulatedAnnealing(const Parameters &parameters,
     : m_params(parameters), m_hyperParams(hyperParams) {
 }
 
+/**
+ * Optimise the objective function for a given number of iterations
+ *
+ * @param func :: the objective cost function to optimise
+ * @param numIterations :: the number of iterations to run
+ */
 void SimulatedAnnealing::optimize(const CostFunction &func,
                              const std::size_t numIterations) {
 
@@ -27,6 +33,19 @@ void SimulatedAnnealing::optimize(const CostFunction &func,
     }
 }
 
+/**
+ * Acceptance criteria function
+ *
+ * This is the same one as proposed by Kirkpatrick et al. A new cost which is
+ * less than the old cost is always chosen. Otherwise it is chosen with
+ * probability exp( -(e' - e) / t)
+ *
+ * @param cost :: the current best cost found
+ * @param newCost :: the proposed new cost
+ * @param temperature :: the current temperature of the system
+ * @return double between 0-1 indicating the likelihood that the new cost is
+ * chosen
+ */
 auto SimulatedAnnealing::acceptanceCriteria(double cost, double newCost, double temperature) -> double {
     if (newCost < cost) {
         return 1.0;

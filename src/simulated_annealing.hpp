@@ -9,7 +9,6 @@
  * This class proivides an implementation of the simulated annealing algorithm
  */
 
-
 namespace Optima {
 
 struct SimulatedAnnealingHyperParameters {
@@ -38,8 +37,11 @@ private:
     /// Acceptance criteria function
     auto acceptanceCriteria(double cost, double newCost, double temperature) -> double;
 
+    /// current best cost found
     double m_bestCost;
+    /// Hyper parameters for this optimizer
     SimulatedAnnealingHyperParameters m_hyperParams;
+    /// current set of parameters being evaluated
     Parameters m_params;
 };
 } // Optima
