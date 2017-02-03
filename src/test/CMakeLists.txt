@@ -4,10 +4,10 @@
 set(TEST_EXEC_NAME optima-tests)
 set(ALL_TEST_FILES
     catch_main.cpp
-    SwarmTest.cpp
-    particletest.cpp
+    particle_test.cpp
+    random_generator_test.cpp
     simulated_annealing_test.cpp
-    RandomGeneratorTest.cpp
+    swarm_test.cpp
 )
 
 # Build test executable 
