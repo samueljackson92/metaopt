@@ -1,8 +1,9 @@
 set(PYTHON_LIB_NAME pyoptima)
 set(BINDING_FILES
-    Swarm.cpp
+    functions.cpp
+    swarm.cpp
     simulated_annealing.cpp
-    Functions.cpp)
+)
 
 pybind11_add_module(${PYTHON_LIB_NAME} MODULE python_bindings.cpp
     ${BINDING_FILES})
