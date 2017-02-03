@@ -30,13 +30,17 @@ public:
     /// Optimize the cost function using the optimizer
     void optimize(const CostFunction &func,
                   const std::size_t numIterations = 1000);
-    /// Get parameters
+    /// Get the best parameters found
     auto getBestParameters() const -> Parameters { return m_params; }
+    /// Get the best solution found
+    auto getBestSolution() const -> double { return m_bestCost; }
+
 
 private:
     /// Acceptance criteria function
     auto acceptanceCriteria(double cost, double newCost, double temperature) -> double;
 
+    double m_bestCost;
     SimulatedAnnealingHyperParameters m_hyperParams;
     Parameters m_params;
 };

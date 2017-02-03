@@ -13,7 +13,7 @@ SimulatedAnnealing::SimulatedAnnealing(const Parameters &parameters,
 void SimulatedAnnealing::optimize(const CostFunction &func,
                              const std::size_t numIterations) {
 
-    auto cost  = func(m_params);
+    m_bestCost  = func(m_params);
     auto temperature = m_hyperParams.initialTemp;
     for(size_t i = 0; i < numIterations; ++i) {
         temperature = m_hyperParams.temperatureFunc(temperature, i);
@@ -21,9 +21,9 @@ void SimulatedAnnealing::optimize(const CostFunction &func,
         auto newCost = func(newParams);
 
         auto randNum = RandomGenerator::uniform(0.0, 1.0);
-        if(acceptanceCriteria(cost, newCost, temperature) >= randNum) {
+        if(acceptanceCriteria(m_bestCost, newCost, temperature) >= randNum) {
             m_params = newParams;
-            cost = newCost;
+            m_bestCost = newCost;
         }
     }
 }
