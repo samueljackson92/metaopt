@@ -28,8 +28,8 @@ class SimulatedAnnealingTest(unittest.TestCase):
 
         bst_solution = s.get_best_parameters()
 
-        for value in bst_solution.itervalues():
-            self.assertAlmostEqual(value, 0, 2)
+        self.assertAlmostEqual(bst_solution['x0'], 0, 2)
+        self.assertAlmostEqual(bst_solution['x1'], 0, 2)
 
 if __name__ == "__main__":
     unittest.main()
