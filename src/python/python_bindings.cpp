@@ -1,6 +1,6 @@
 #include <pybind11/pybind11.h>
 
-namespace MetaOpt {
+namespace Optima {
 namespace Python {
 
 namespace py = pybind11;
