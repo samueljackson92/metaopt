@@ -17,7 +17,7 @@ class SimulatedAnnealingTest(unittest.TestCase):
         hyper_params = {
             'temperature_func': lambda t, i: t/np.log(i+2),
             'neighbour_func': neighbour_func,
-            'initial_temp': 100000.0
+            'initial_temp': 1000000.0
         }
 
         params = {}
