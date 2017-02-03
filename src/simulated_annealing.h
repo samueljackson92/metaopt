@@ -31,7 +31,7 @@ public:
     void optimize(const CostFunction &func,
                   const std::size_t numIterations = 1000);
     /// Get parameters
-    auto getParameters() const -> Parameters;
+    auto getBestParameters() const -> Parameters { return m_params; }
 
 private:
     /// Acceptance criteria function
