@@ -4,8 +4,7 @@
 #include "../random_generator.hpp"
 #include "../particle.hpp"
 
-
-using namespace MetaOpt;
+using namespace Optima;
 
 TEST_CASE("Particle Setup", "[Particle]") {
   // seed the random number generator for Eigen

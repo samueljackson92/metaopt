@@ -6,7 +6,7 @@
 #include <unordered_map>
 #include <utility>
 
-namespace MetaOpt {
+namespace Optima {
 
 /// Pair of vectors defining the bounds of the search space
 typedef std::pair<Eigen::ArrayXd, Eigen::ArrayXd> Bounds;
@@ -17,6 +17,7 @@ typedef std::unordered_map<std::string, std::pair<double, double>>
 typedef std::unordered_map<std::string, double> Parameters;
 /// Typedef for a cost function
 typedef std::function<double(Parameters const &)> CostFunction;
+
 }
 
 #endif // TYPES_H

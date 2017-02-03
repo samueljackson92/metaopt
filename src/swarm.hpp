@@ -8,7 +8,7 @@
 #include "types.hpp"
 #include "particle.hpp"
 
-namespace MetaOpt {
+namespace Optima {
 
 struct SwarmHyperParameters {
     double omega;

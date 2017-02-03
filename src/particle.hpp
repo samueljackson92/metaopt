@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 
-namespace MetaOpt {
+namespace Optima {
 
 class Particle
 {

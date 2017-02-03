@@ -12,8 +12,6 @@
 
 namespace Optima {
 
-using namespace MetaOpt;
-
 struct SimulatedAnnealingHyperParameters {
     std::function<double(double temperature, size_t iteration)> temperatureFunc;
     std::function<Parameters(const Parameters &params)> neighbourFunc;

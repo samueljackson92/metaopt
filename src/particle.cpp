@@ -3,7 +3,7 @@
 
 #include <Eigen/Core>
 
-using namespace MetaOpt;
+using namespace Optima;
 using namespace Eigen;
 
 Particle::Particle(const ParameterSpace &paramSpace)

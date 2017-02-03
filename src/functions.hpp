@@ -5,7 +5,7 @@
 #include <Eigen/Core>
 #include <cmath>
 
-namespace MetaOpt {
+namespace Optima {
 
 class TestFunctions {
 

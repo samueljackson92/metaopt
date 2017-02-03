@@ -3,7 +3,7 @@
 
 #include <random>
 
-namespace MetaOpt {
+namespace Optima {
 
 class RandomGenerator {
 

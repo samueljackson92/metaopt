@@ -8,7 +8,7 @@
 #include "array_helpers.hpp"
 
 using namespace Eigen;
-using namespace MetaOpt;
+using namespace Optima;
 
 Swarm::Swarm(const ParameterSpace &parameters,
              const Parameters &hyperParameters, size_t num_particles)

@@ -3,7 +3,6 @@
 #include "simulated_annealing.h"
 
 using namespace Optima;
-using namespace MetaOpt;
 
 SimulatedAnnealing::SimulatedAnnealing(const Parameters &parameters,
         const SimulatedAnnealingHyperParameters &hyperParams)

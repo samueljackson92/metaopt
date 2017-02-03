@@ -5,7 +5,6 @@
 #include "../random_generator.hpp"
 #include "../simulated_annealing.h"
 
-using namespace MetaOpt;
 using namespace Optima;
 
 TEST_CASE( "SimulatedAnnealing Optimize Parabola", "[SimulatedAnnealing.Optimize]" ) {

@@ -5,7 +5,7 @@
 #include "../functions.hpp"
 #include "../array_helpers.hpp"
 
-using namespace MetaOpt;
+using namespace Optima;
 
 Parameters makeHyperParameters() {
   Parameters params;

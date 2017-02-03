@@ -7,7 +7,7 @@
 #include <Eigen/Core>
 #include <random>
 
-namespace MetaOpt
+namespace Optima
 {
 
 class ArrayHelpers {

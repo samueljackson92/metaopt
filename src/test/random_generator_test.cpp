@@ -2,7 +2,7 @@
 #include <catch.hpp>
 #include "../random_generator.hpp"
 
-using namespace MetaOpt;
+using namespace Optima;
 
 TEST_CASE( "Random Generator Uniform Double", "[RandomGenerator.uniform]" ) {
   RandomGenerator::seed(50);
