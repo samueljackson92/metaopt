@@ -4,6 +4,7 @@ set (INCLUDE_FILES
     ArrayHelpers.h
     Particle.h
     RandomGenerator.hpp
+    simulated_annealing.h
     Swarm.h
     Types.h
     Functions.h)
@@ -11,6 +12,7 @@ set (INCLUDE_FILES
 set (SRC_FILES
     RandomGenerator.cpp
     Particle.cpp
+    simulated_annealing.cpp
     Swarm.cpp)
 
 add_library(

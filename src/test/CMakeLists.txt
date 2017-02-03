@@ -6,6 +6,7 @@ set(ALL_TEST_FILES
     catch_main.cpp
     SwarmTest.cpp
     particletest.cpp
+    simulated_annealing_test.cpp
     RandomGeneratorTest.cpp
 )
 

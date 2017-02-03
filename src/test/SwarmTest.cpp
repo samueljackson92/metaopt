@@ -37,7 +37,7 @@ TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
 
   Swarm sw(parameters, hyperParams, 10);
 
-  CostFunction func = parabola;
+  CostFunction func = TestFunctions::parabola;
   REQUIRE_NOTHROW(sw.optimize(func));
   auto solution = sw.getBestParameters();
 
@@ -58,7 +58,7 @@ TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
 
   Swarm sw(parameters, hyperParams, 10);
 
-  CostFunction func = rosen;
+  CostFunction func = TestFunctions::rosen;
   REQUIRE_NOTHROW(sw.optimize(func));
   auto solution = sw.getBestParameters();
 
@@ -86,7 +86,7 @@ TEST_CASE("Swarm Optimize HyperParams", "[Swarm.Optimize]") {
 
   Swarm sw(parameters, hyperParams, 10);
 
-  CostFunction func = rosen;
+  CostFunction func = TestFunctions::rosen;
   REQUIRE_NOTHROW(sw.optimize(func));
   auto solution = sw.getBestParameters();
 
@@ -108,7 +108,7 @@ TEST_CASE("Swarm Optimize Iterations", "[Swarm.Optimize]") {
 
   Swarm sw(parameters, hyperParams, 10);
 
-  CostFunction func = rosen;
+  CostFunction func = TestFunctions::rosen;
   REQUIRE_NOTHROW(sw.optimize(func, 100));
   auto solution = sw.getBestParameters();
 
