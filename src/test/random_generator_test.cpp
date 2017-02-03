@@ -1,6 +1,6 @@
 
 #include <catch.hpp>
-#include "../RandomGenerator.hpp"
+#include "../random_generator.hpp"
 
 using namespace MetaOpt;
 

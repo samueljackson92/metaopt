@@ -1,8 +1,8 @@
 #include <catch.hpp>
 #include <stdlib.h>
 
-#include "../RandomGenerator.hpp"
-#include "../Particle.h"
+#include "../random_generator.hpp"
+#include "../particle.hpp"
 
 
 using namespace MetaOpt;

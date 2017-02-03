@@ -5,8 +5,8 @@
 #include <vector>
 #include <Eigen/Core>
 
-#include "Types.h"
-#include "Particle.h"
+#include "types.hpp"
+#include "particle.hpp"
 
 namespace MetaOpt {
 

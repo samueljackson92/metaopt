@@ -1,19 +1,21 @@
 
 set (LIBRARY_NAME optima)
 set (INCLUDE_FILES
-    ArrayHelpers.h
-    Particle.h
-    RandomGenerator.hpp
+    array_helpers.hpp
+    functions.hpp
+    particle.hpp
+    random_generator.hpp
     simulated_annealing.h
-    Swarm.h
-    Types.h
-    Functions.h)
+    swarm.hpp
+    types.hpp
+)
 
 set (SRC_FILES
-    RandomGenerator.cpp
-    Particle.cpp
+    random_generator.cpp
+    particle.cpp
     simulated_annealing.cpp
-    Swarm.cpp)
+    swarm.cpp
+)
 
 add_library(
     ${LIBRARY_NAME}

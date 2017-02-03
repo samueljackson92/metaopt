@@ -1,5 +1,5 @@
-#include "Particle.h"
-#include "ArrayHelpers.h"
+#include "particle.hpp"
+#include "array_helpers.hpp"
 
 #include <Eigen/Core>
 

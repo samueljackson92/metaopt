@@ -1,7 +1,7 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include "Types.h"
+#include "types.hpp"
 
 #include <Eigen/Dense>
 #include <memory>

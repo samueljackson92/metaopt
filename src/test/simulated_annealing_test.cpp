@@ -1,8 +1,8 @@
 #include <catch.hpp>
 
-#include "../Types.h"
-#include "../Functions.h"
-#include "../RandomGenerator.hpp"
+#include "../types.hpp"
+#include "../functions.hpp"
+#include "../random_generator.hpp"
 #include "../simulated_annealing.h"
 
 using namespace MetaOpt;

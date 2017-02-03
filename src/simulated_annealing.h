@@ -1,7 +1,7 @@
 #ifndef SIMULATEDANNEALING_H
 #define SIMULATEDANNEALING_H
 
-#include "Types.h"
+#include "types.hpp"
 
 /**
  * Simulated Annealing optimiser

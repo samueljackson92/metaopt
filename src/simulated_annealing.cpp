@@ -1,5 +1,5 @@
-#include "Types.h"
-#include "RandomGenerator.hpp"
+#include "types.hpp"
+#include "random_generator.hpp"
 #include "simulated_annealing.h"
 
 using namespace Optima;

@@ -3,9 +3,9 @@
 #include <time.h>
 #include <random>
 
-#include "Particle.h"
-#include "Swarm.h"
-#include "ArrayHelpers.h"
+#include "particle.hpp"
+#include "swarm.hpp"
+#include "array_helpers.hpp"
 
 using namespace Eigen;
 using namespace MetaOpt;

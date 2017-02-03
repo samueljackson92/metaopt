@@ -1,8 +1,8 @@
 #ifndef ARRAYHELPERS_H
 #define ARRAYHELPERS_H
 
-#include "RandomGenerator.hpp"
-#include "Types.h"
+#include "random_generator.hpp"
+#include "types.hpp"
 
 #include <Eigen/Core>
 #include <random>

@@ -1,4 +1,4 @@
-#include "RandomGenerator.hpp"
+#include "random_generator.hpp"
 #include <random>
 
 using namespace MetaOpt;

@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
 
-#include "Types.h"
+#include "types.hpp"
 #include <Eigen/Core>
 #include <cmath>
 
