@@ -4,6 +4,7 @@ project(optima CXX)
 # Setup build config
 # ------------------------------------------------------------------------------
 set(CMAKE_BUILD_TYPE Debug)
+set(CMAKE_VERBOSE_MAKEFILE off )
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
@@ -18,14 +19,18 @@ find_package(Eigen3 3.2 REQUIRED)
 include_directories(${EIGEN3_INCLUDE_DIR})
 link_directories(${EIGEN3_LIBRARIES})
 
+find_package(TBB REQUIRED)
+include_directories(${TBB_INCLUDE_DIRS})
+link_directories(${TBB_LIBRARIES})
+
 find_package(PythonLibs REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CATCH_LIBARY_INCLUDES ${PROJECT_SOURCE_DIR}/Catch/include)
+set(PYBIND11_CPP_STANDARD -std=c++11)
 
 # Add sub directories 
 # ------------------------------------------------------------------------------
-set(PYBIND11_CPP_STANDARD -std=c++11)
 add_subdirectory(pybind11)
 add_subdirectory(src)
 add_subdirectory(python_tests)

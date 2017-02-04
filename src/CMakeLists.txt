@@ -1,5 +1,5 @@
-
 set (LIBRARY_NAME optima)
+
 set (INCLUDE_FILES
     array_helpers.hpp
     functions.hpp
@@ -23,8 +23,9 @@ add_library(
     ${SRC_FILES}
     ${INCLUDE_FILES}
     ${EIGEN3_LIBRARIES}
+    ${TBB_LIBRARIES}
 )
-
+target_link_libraries(${LIBRARY_NAME} tbb)
 target_compile_features(${LIBRARY_NAME} PRIVATE cxx_range_for)
 
 # Python API
