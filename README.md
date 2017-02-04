@@ -1,6 +1,6 @@
 # Optima 
 
-[![Build Status](https://travis-ci.org/samueljackson92/metaopt.svg?branch=travis_build)](https://travis-ci.org/samueljackson92/optima)
+[![Build Status](https://travis-ci.org/samueljackson92/optima.svg?branch=master)](https://travis-ci.org/samueljackson92/optima)
 
 ## Build Instructions
 
