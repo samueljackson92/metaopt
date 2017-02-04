@@ -51,6 +51,10 @@ TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
   RandomGenerator::seed(50);
 
   Parameters hyperParams = makeHyperParameters();
+  hyperParams["omega"] = 0.5;
+  hyperParams["phi_local"] = 0.5;
+  hyperParams["phi_global"] = 0.5;
+
   ParameterSpace parameters;
   parameters["x0"] = std::make_pair(-3, 3);
   parameters["x1"] = std::make_pair(-3, 3);
@@ -59,7 +63,7 @@ TEST_CASE("Swarm Optimize Rosenbrock", "[Swarm.Optimize]") {
   Swarm sw(parameters, hyperParams, 10);
 
   CostFunction func = TestFunctions::rosen;
-  REQUIRE_NOTHROW(sw.optimize(func));
+  REQUIRE_NOTHROW(sw.optimize(func, 10000));
   auto solution = sw.getBestParameters();
 
   REQUIRE(func(solution) == Approx(0).epsilon(0.01));

@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <Eigen/Core>
+#include <tbb/tbb.h>
 
 #include "types.hpp"
 #include "particle.hpp"
@@ -49,7 +50,8 @@ private:
     Parameters hyperParameters;
     /// Cost function
     CostFunction func;
-
+    /// Mutex used when updating global best position & parameters
+    tbb::mutex particleUpdateMutex;
 };
 }
 

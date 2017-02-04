@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <random>
+#include <tbb/tbb.h>
+#include <iostream>
 
 #include "particle.hpp"
 #include "swarm.hpp"
@@ -26,11 +28,16 @@ void Swarm::optimize(const CostFunction &func,
   bestParameters = bestParticle->getParameters();
 
   while (currentIteration < numIterations) {
-    for (auto particle : particles) {
-      updateParticle(particle);
-      updateBestPositions(particle);
-    }
-    ++currentIteration;
+      tbb::parallel_for(tbb::blocked_range<size_t>(0, 10),
+        [this](const tbb::blocked_range<size_t> &r) {
+            for (size_t i = r.begin(); i != r.end(); ++i) {
+                auto particle = particles[i];
+                updateParticle(particle);
+                updateBestPositions(particle);
+            }
+        });
+
+      ++currentIteration;
   }
 }
 
@@ -60,9 +67,16 @@ void Swarm::updateParticle(const Particle_ptr particle)
   ArrayXd rp = ArrayHelpers::randomArray(x.size());
   ArrayXd rg = ArrayHelpers::randomArray(x.size());
 
-  double phi_local = hyperParameters["phi_local"];
-  double phi_global = hyperParameters["phi_global"];
-  double omega = hyperParameters["omega"];
+  ArrayXd bestPos;
+  double phi_local, phi_global, omega;
+  {
+      // accquire shared data
+      tbb::mutex::scoped_lock lock(particleUpdateMutex);
+      phi_local = hyperParameters["phi_local"];
+      phi_global = hyperParameters["phi_global"];
+      omega = hyperParameters["omega"];
+      bestPos = bestPosition;
+  }
 
   // local & global contributions
   ArrayXd local_part = phi_local * rp * (p - x);
@@ -78,18 +92,24 @@ void Swarm::updateBestPositions(const Particle_ptr particle)
   auto x = particle->getParameters();
   auto p = particle->getBestParameters();
 
+  tbb::mutex::scoped_lock lock(particleUpdateMutex);
   auto value = func(x);
   auto bestValue = func(p);
 
-  if (value < bestValue) {
-    ArrayXd &pos = particle->getPosition();
-    ArrayXd &bstPos = particle->getBestPosition();
-    bstPos = pos;
+  // check if this value was better than out personal best
+  if (value >= bestValue)
+      return;
 
-    auto globalBestValue = func(bestParameters);
-    if (value < globalBestValue) {
-      bestParameters = x;
-      bestPosition = particle->getPosition();
-    }
-  }
+  // update
+  ArrayXd &pos = particle->getPosition();
+  particle->setBestPosition(pos);
+
+  // check is this is better than the global best
+  auto globalBestValue = func(bestParameters);
+  if (value >= globalBestValue)
+      return;
+
+  // update
+  bestParameters = x;
+  bestPosition = particle->getPosition();
 }

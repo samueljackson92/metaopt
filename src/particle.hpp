@@ -26,9 +26,9 @@ public:
   const Parameters &getBestParameters();
 
   /// Set the current position of the particle
-  void setPosition(const Eigen::ArrayXd &p);
+  void setPosition(const Eigen::ArrayXd &p) { position = p; }
   /// Set the best position found by this particle
-  void setBestPosition(const Eigen::ArrayXd &bp);
+  void setBestPosition(const Eigen::ArrayXd &bp) { bestPosition = bp; }
   /// Set the current velocity of the particle
   void setVelocity(const Eigen::ArrayXd &v) { velocity = v; }
 
