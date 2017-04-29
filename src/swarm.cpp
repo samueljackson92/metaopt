@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <random>
+#include <tbb/parallel_for.h>
+#include <tbb/task_scheduler_init.h>
 
 #include "particle.hpp"
 #include "swarm.hpp"
@@ -25,11 +27,21 @@ void Swarm::optimize(const CostFunction &func,
   bestPosition = bestParticle->getPosition();
   bestParameters = bestParticle->getParameters();
 
+  tbb::task_scheduler_init init(tbb::task_scheduler_init::default_num_threads());
+
   while (currentIteration < numIterations) {
-    for (auto particle : particles) {
-      updateParticle(particle);
-      updateBestPositions(particle);
-    }
+      tbb::parallel_for(tbb::blocked_range<size_t>(0,4),
+        [this](const tbb::blocked_range<size_t>& r) {
+            for (size_t i=r.begin();i<r.end();++i) {
+                updateParticle(particles[i]);
+                updateBestPositions(particles[i]);
+            }
+        });
+
+    /* for (auto particle : particles) { */
+    /*   updateParticle(particle); */
+    /*   updateBestPositions(particle); */
+    /* } */
     ++currentIteration;
   }
 }
@@ -57,12 +69,12 @@ void Swarm::updateParticle(const Particle_ptr particle)
   ArrayXd &p = particle->getBestPosition();
   ArrayXd &v = particle->getVelocity();
 
-  ArrayXd rp = ArrayHelpers::randomArray(x.size());
-  ArrayXd rg = ArrayHelpers::randomArray(x.size());
+  const ArrayXd rp = ArrayHelpers::randomArray(x.size());
+  const ArrayXd rg = ArrayHelpers::randomArray(x.size());
 
-  double phi_local = hyperParameters["phi_local"];
-  double phi_global = hyperParameters["phi_global"];
-  double omega = hyperParameters["omega"];
+  const auto phi_local = hyperParameters["phi_local"];
+  const auto phi_global = hyperParameters["phi_global"];
+  const auto omega = hyperParameters["omega"];
 
   // local & global contributions
   ArrayXd local_part = phi_local * rp * (p - x);
@@ -75,21 +87,23 @@ void Swarm::updateParticle(const Particle_ptr particle)
 
 void Swarm::updateBestPositions(const Particle_ptr particle)
 {
-  auto x = particle->getParameters();
-  auto p = particle->getBestParameters();
+  const auto &x = particle->getParameters();
+  const auto &p = particle->getBestParameters();
 
-  auto value = func(x);
-  auto bestValue = func(p);
+  const auto value = func(x);
+  const auto bestValue = func(p);
 
-  if (value < bestValue) {
-    ArrayXd &pos = particle->getPosition();
-    ArrayXd &bstPos = particle->getBestPosition();
-    bstPos = pos;
+  if (value >= bestValue)
+      return;
 
-    auto globalBestValue = func(bestParameters);
-    if (value < globalBestValue) {
+  ArrayXd &pos = particle->getPosition();
+  ArrayXd &bstPos = particle->getBestPosition();
+  bstPos = pos;
+
+  tbb::mutex::scoped_lock lock(updateMutex);
+  auto globalBestValue = func(bestParameters);
+  if (value < globalBestValue) {
       bestParameters = x;
       bestPosition = particle->getPosition();
-    }
   }
 }

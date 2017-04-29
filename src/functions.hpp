@@ -4,12 +4,48 @@
 #include "types.hpp"
 #include <Eigen/Core>
 #include <cmath>
+#include <numeric>
 
 namespace Optima {
 
 class TestFunctions {
 
 public:
+
+    /**
+     * N-Dimensional generalization of the Ackley function
+     *
+     * This function has a minimum when all parameter values are zero.
+     * The hyper parameters for this function are hard coded to the following:
+     * a = 20
+     * b = 0.2
+     * c = 2 * pi
+     *
+     * @param params :: n dimensional array of x values
+     * @return value of the function evaluated with the given parameters
+     */
+    static double ackley(const Parameters &params) {
+        const double a = 20;
+        const double b = 0.2;
+        const double c = 2 * M_PI;
+
+        double powerSum = std::accumulate(params.begin(), params.end(), 0, 
+                [](const double sum, const std::pair<std::string, double>& item) {
+                    return sum + std::pow(item.second, 2.0);
+                });
+
+        double cosSum = std::accumulate(params.begin(), params.end(), 0, 
+                [&c](const double sum, const std::pair<std::string, double>& item) {
+                    return sum + std::cos(c*item.second);
+                });
+
+        cosSum *= 1. / params.size();
+        powerSum *= 1. / params.size();
+        powerSum = std::sqrt(powerSum);
+
+        return -a * std::exp( -b * powerSum ) - std::exp(cosSum) + a + std::exp(1);
+    }
+
     /**
      * N-Dimensional generalization of the Rosenbrock function
      *

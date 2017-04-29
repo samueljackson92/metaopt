@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <vector>
 #include <Eigen/Core>
+#include <tbb/mutex.h>
 
 #include "types.hpp"
 #include "particle.hpp"
@@ -49,6 +50,8 @@ private:
     Parameters hyperParameters;
     /// Cost function
     CostFunction func;
+    /// Global update mutex
+    tbb::mutex updateMutex;
 
 };
 }

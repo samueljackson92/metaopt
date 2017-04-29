@@ -18,14 +18,14 @@ class SwarmTest(unittest.TestCase):
         for value in bst_solution:
             self.assertAlmostEqual(value, 0)
 
-    def test_with_rosenbrock(self):
-        """ Test with the rosenbrock function with 2 variables """
-        hyper_params = {'phi_local': 1, 'phi_global': 1, 'omega': 0.1}
-        params = {'x0': (-1, 1), 'x1': (-1, 1)}
+    def test_with_ackley(self):
+        """ Test with the ackley function with 2 variables """
+        hyper_params = {'phi_local': 0.1, 'phi_global': 0.1, 'omega': 0.1}
+        params = {'x0': (-40, 40), 'x1': (-40, 40)}
         num_particles = 100
 
         s = opt.Swarm(params, hyper_params, num_particles)
-        s.optimize(opt.rosen, 1000)
+        s.optimize(opt.ackley, 10000)
 
         bst_solution = s.getBestSolution()
 
