@@ -3,7 +3,7 @@
 #include <time.h>
 #include <random>
 #include <tbb/parallel_for.h>
-#include <tbb/task_scheduler_init.h>
+#include <iostream>
 
 #include "particle.hpp"
 #include "swarm.hpp"
@@ -27,21 +27,15 @@ void Swarm::optimize(const CostFunction &func,
   bestPosition = bestParticle->getPosition();
   bestParameters = bestParticle->getParameters();
 
-  tbb::task_scheduler_init init(tbb::task_scheduler_init::default_num_threads());
-
+  const auto range = tbb::blocked_range<size_t>(0, particles.size());
   while (currentIteration < numIterations) {
-      tbb::parallel_for(tbb::blocked_range<size_t>(0,4),
-        [this](const tbb::blocked_range<size_t>& r) {
-            for (size_t i=r.begin();i<r.end();++i) {
-                updateParticle(particles[i]);
-                updateBestPositions(particles[i]);
-            }
-        });
+    tbb::parallel_for(range, [this](const tbb::blocked_range<size_t>& r) {
+        for (size_t i = r.begin(); i < r.end(); ++i) {
+            updateParticle(particles[i]);
+            updateBestPositions(particles[i]);
+        }
+    });
 
-    /* for (auto particle : particles) { */
-    /*   updateParticle(particle); */
-    /*   updateBestPositions(particle); */
-    /* } */
     ++currentIteration;
   }
 }

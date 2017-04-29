@@ -35,7 +35,7 @@ TEST_CASE("Swarm Optimize Parabola", "[Swarm.Optimize]") {
   parameters["x0"] = std::make_pair(-1, 1);
   parameters["x1"] = std::make_pair(-1, 1);
 
-  Swarm sw(parameters, hyperParams, 100);
+  Swarm sw(parameters, hyperParams, 10);
 
   CostFunction func = TestFunctions::parabola;
   REQUIRE_NOTHROW(sw.optimize(func));
@@ -56,10 +56,10 @@ TEST_CASE("Swarm Optimize Ackley", "[Swarm.Optimize]") {
   parameters["x1"] = std::make_pair(-40, 40);
   parameters["x2"] = std::make_pair(-40, 40);
 
-  Swarm sw(parameters, hyperParams, 1000);
+  Swarm sw(parameters, hyperParams, 10);
 
   CostFunction func = TestFunctions::ackley;
-  REQUIRE_NOTHROW(sw.optimize(func, 100000));
+  REQUIRE_NOTHROW(sw.optimize(func, 10000));
   auto solution = sw.getBestParameters();
 
   REQUIRE(func(solution) == Approx(1.718).epsilon(0.1));
