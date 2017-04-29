@@ -31,3 +31,6 @@
 # Python
 *.pyc
 *.swp
+
+# Other
+build
