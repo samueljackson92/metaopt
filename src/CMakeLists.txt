@@ -24,8 +24,9 @@ add_library(
     ${INCLUDE_FILES}
     ${EIGEN3_LIBRARIES}
 )
+target_link_libraries(optima tbb)
 
-target_compile_features(${LIBRARY_NAME} PRIVATE cxx_range_for)
+target_compile_features(optima PRIVATE cxx_range_for)
 
 # Python API
 add_subdirectory(python)

@@ -23,6 +23,8 @@ include_directories(${PYTHON_INCLUDE_DIRS})
 
 set(CATCH_LIBARY_INCLUDES ${PROJECT_SOURCE_DIR}/Catch/include)
 
+find_package(TBB REQUIRED)
+
 # Add sub directories 
 # ------------------------------------------------------------------------------
 set(PYBIND11_CPP_STANDARD -std=c++11)
