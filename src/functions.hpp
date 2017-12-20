@@ -16,6 +16,7 @@ public:
      * N-Dimensional generalization of the Ackley function
      *
      * This function has a minimum when all parameter values are zero.
+     *
      * The hyper parameters for this function are hard coded to the following:
      * a = 20
      * b = 0.2

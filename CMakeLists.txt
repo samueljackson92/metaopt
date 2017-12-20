@@ -3,7 +3,6 @@ project(optima CXX)
 
 # Setup build config
 # ------------------------------------------------------------------------------
-set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)

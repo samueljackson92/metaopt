@@ -27,6 +27,7 @@ public:
   /// Get the best soultion found
   Eigen::ArrayXd getBestSolution() const { return bestPosition; }
   Parameters getBestParameters() const { return bestParameters; }
+  std::vector<double> getCosts() const { return costs; }
 
 private:
     /// initilise particles with random positions & velocity
@@ -50,8 +51,10 @@ private:
     Parameters hyperParameters;
     /// Cost function
     CostFunction func;
-    /// Global update mutex
+    /// Global update mutex. Locks updates to the global best position
     tbb::mutex updateMutex;
+    /// variable to store costs
+    std::vector<double> costs;
 
 };
 }

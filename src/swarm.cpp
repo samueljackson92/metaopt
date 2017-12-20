@@ -22,6 +22,7 @@ void Swarm::optimize(const CostFunction &func,
                      const std::size_t numIterations) {
   this->func = func;
   size_t currentIteration = 0;
+  costs.reserve(numIterations);
 
   auto bestParticle = findBestParticle(func);
   bestPosition = bestParticle->getPosition();
@@ -35,7 +36,6 @@ void Swarm::optimize(const CostFunction &func,
             updateBestPositions(particles[i]);
         }
     });
-
     ++currentIteration;
   }
 }
@@ -95,6 +95,8 @@ void Swarm::updateBestPositions(const Particle_ptr particle)
   bstPos = pos;
 
   tbb::mutex::scoped_lock lock(updateMutex);
+  costs.push_back(bestValue);
+
   auto globalBestValue = func(bestParameters);
   if (value < globalBestValue) {
       bestParameters = x;

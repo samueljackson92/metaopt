@@ -19,7 +19,8 @@ void init_swarm(py::module &m) {
            py::arg("num_particles") = 10)
       .def("optimize", &Swarm::optimize)
       .def("getBestSolution", &Swarm::getBestSolution)
-      .def("getBestParameters", &Swarm::getBestParameters);
+      .def("getBestParameters", &Swarm::getBestParameters)
+      .def("getCosts", &Swarm::getCosts);
 }
 }
 }
